@@ -44,7 +44,7 @@ Go grab the binary for the apropriate platform from https://nodejs.org/ and come
 <br/><br/>
 
 ### Create Web App
-This is just a directory to hold our npm configuration really. It just makes it easier for this walkthrough going forward to have everything in a neat little box.
+This is just a directory to hold our npm configuration really. It just makes it easier for this walkthrough going forward to have everything in a neat little box. You could even copy the files in the node_modules/@senzing/sdk-components-web after the package is installed and not even use node if you wanted to. You'd lose the easy updates and semver stuff but yeah, you _could_ do that.
 
 ```
 mkdir sdk-components-example-web-app
