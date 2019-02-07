@@ -1,4 +1,4 @@
-# Example Angular App using @senzing/sdk-components-web
+# Example Web App using @senzing/sdk-components-web
 
 
 ## Overview
@@ -15,7 +15,7 @@ For more information on the subject see the following sites:
 * [Web Components | MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 * [Building Components | Web Fundamentals | Google Developers](https://developers.google.com/web/fundamentals/web-components/)
 
-<br/><br/>
+<br/>
 
 ## Steps:
   - [Prerequisites](#install-nodejs)
@@ -34,13 +34,13 @@ For more information on the subject see the following sites:
 ### Install NodeJS
 If you haven't already done so, install NodeJS. If you already have node installed, great! lets just check the version `node -v` and check that we're good to go:
 
-<img src="src/assets/readme-thumbs/node_v.png">
+<img src="images/readme/node_v.png">
 
 If not, either update node [via the cmdline](https://www.youtube.com/watch?v=C9gehlXhS6U) or just go through the steps as if you were installing it from scratch below.
 
 Go grab the binary for the apropriate platform from https://nodejs.org/ and come back here once done.
 
-<a hfre="https://nodejs.org/"><img src="src/assets/readme-thumbs/download-nodejs.png"></a>
+<a hfre="https://nodejs.org/"><img src="images/readme/download-nodejs.png"></a>
 <br/><br/>
 
 ### Create Web App
@@ -82,7 +82,7 @@ java -jar "%HOMEPATH%\www\rest-api-server-java\target\sz-api-server-1.5.0.jar" -
 ```
 
 the result should be something like:
-<img src="src/assets/readme-thumbs/rest-server_start.png">
+<img src="images/readme/rest-server_start.png">
 
 
 #### APP Server
@@ -96,20 +96,21 @@ Add the following to your package.json files scripts section:
 now start the server up with `npm start`. A browser window should automatically open to http://localhost:4200/ 
 
 For the time being it should just show a directory listing until we add some content in the next step.
-
+<br/><br/>
 
 ## Create index.html
 There are two ways to do this. We can start from scratch and I can walk you through the steps and how and why of each one.
 
 <h3 name="Copy-Example">Or...</h3>
-You can just copy the example.html from the node package to your web app root. If you want to go this route just do a 
-`cp node_modules/@senzing/sdk-components-web/example.html index.html` update the css and javascript links to point to the location in node_modules, and skip ahead to the [Servers](#Servers) Step.
-```
-<link rel="stylesheet" href="node_modules/@senzing/sdk-components-web/senzing-components-web.css">...
 
-<script type="text/javascript" src="node_modules/@senzing/sdk-components-web/senzing-components-web.js"></script>...
-```
+You can just copy the example.html from the node package to your web app root. If you want to go this route just do a `cp node_modules/@senzing/sdk-components-web/example.html index.html`, update the css and javascript links to point to the location in node_modules.
 
+```html
+<link rel="stylesheet" href="node_modules/@senzing/sdk-components-web/senzing-components-web.css">
+
+<script type="text/javascript" src="node_modules/@senzing/sdk-components-web/senzing-components-web.js"></script>
+```
+<br/></br>
 
 ### From Scratch
 Run `touch index.html`. Then open up the html file in your preferred IDE. Add the basic html boilerplate like the following:
@@ -126,17 +127,16 @@ Run `touch index.html`. Then open up the html file in your preferred IDE. Add th
 
 Then add the component styles and javascript from the npm package to our document:
 ```html
-...
     <link rel="stylesheet" href="node_modules/@senzing/sdk-components-web/senzing-components-web.css">
 </head>
 ```
 
 Then at the end of the body add the javascript module:
 ```html
-
     <script type="text/javascript" src="node_modules/@senzing/sdk-components-web/senzing-components-web.js"></script>
 </body>
 ```
+<br/>
 
 ### Add the components
 We're going to add a [SzSearchComponent](https://senzing.github.io/sdk-components-ng/components/SzSearchComponent.html), [SzSearchResultsComponent](https://senzing.github.io/sdk-components-ng/components/SzSearchResultsComponent.html), and a [SzEntityDetailComponent](https://senzing.github.io/sdk-components-ng/components/SzEntityDetailComponent.html).
@@ -166,6 +166,7 @@ We want the search results, and detail views to be hidden unless there is conten
 So now if we reload http://localhost:4200, we'll have just one thing on the page. The search box. If you fill in some criteria and click search nothing happens, what gives?
 
 Stuff is happening, if you open up the developer tools and go to the network tab you'll see XHR requests being made to the API Server and responses being returned. 
+<br/>
 
 ### Wire them together
 
