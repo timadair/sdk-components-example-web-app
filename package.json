@@ -1,6 +1,6 @@
 {
   "name": "sdk-components-example-web-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A quick example web app using the @senzing/sdk-components-web components.",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Senzing/sdk-components-example-web-app#readme",
   "dependencies": {
-    "@senzing/sdk-components-web": "0.0.3",
+    "@senzing/sdk-components-web": "^0.0.4",
     "http-server": "^0.11.1"
   }
 }

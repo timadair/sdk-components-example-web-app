@@ -6,12 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script>
-    // wire up senzing web components to event handlers
+    // wire up senzing web components to event handlers    
     window.onload = function() {
+      // get dom node references
       var searchBoxEle    = document.querySelector('sz-search');
       var searchResEle    = document.querySelector('sz-search-results');
       var entityDetailEle = document.querySelector('sz-entity-detail');
       var noResultsEle    = document.querySelector('#no-results');
+      var apiConfigEle    = document.querySelector('sz-configuration');
+
+      /*
+      // re-pull for attr types if not running on localhost:2080
+      // leave commented out or remove if running on default host:port
+      // @see https://github.com/Senzing/sdk-components-web/issues/2
+      if(apiConfigEle.getAttribute('base-path') && apiConfigEle.getAttribute('base-path').indexOf(':2080') < 0){
+        // pull these once again (first one will fail at race cond)
+        console.warn('api service not running on defaults. re-initializing attr types.', apiConfigEle, apiConfigEle.getAttribute('base-path'));
+        searchBoxEle.updateAttributeTypes();
+      }*/
 
       function showDetailView(entityId) {
         entityDetailEle.setAttribute('entity-id', entityId);
@@ -34,15 +46,15 @@
 
         // is there a entity id being displayed in the detail view?
         var currentlySelectedEntity = entityDetailEle.getAttribute("entity-id");
-        if(currentlySelectedEntity){ parseInt(currentlySelectedEntity); }
-        console.log('currentlySelectedEntity: "'+ currentlySelectedEntity +'"');
+        if(currentlySelectedEntity){ 
+          currentlySelectedEntity = parseInt(currentlySelectedEntity); 
+        }
 
         if( currentlySelectedEntity > 0){
             // hide results list
             searchResEle.setAttribute('class','hidden');
             // show detail
             entityDetailEle.removeAttribute('class');
-            console.log('\t hid results list');
         } else {
           console.log('\t no entity detail selected');
         }
@@ -72,6 +84,7 @@
       });
       
     };
+
   </script>
   <style>
     body {
@@ -82,10 +95,12 @@
       display: none !important;
     }
   </style>
-<link rel="stylesheet" href="node_modules/@senzing/sdk-components-web/senzing-components-web.css"></head>
+<link rel="stylesheet" href="node_modules/@senzing/sdk-components-web/themes/drab.css"></head>
 <link rel="stylesheet" href="styles/styles.css"></head>
-
 <body>
+  <!-- uncomment if running on different host:port
+    <sz-configuration id="api-config" base-path="http://localhost:8080"></sz-configuration>
+  -->
   <sz-search></sz-search>
   <h2 id="no-results">No Results Found</h2>
   <sz-search-results class="hidden"></sz-search-results>

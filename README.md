@@ -221,7 +221,7 @@ So now if we refresh the page and search again, the same results we were printin
 
 That's pretty basic. It was easy though right? We should add a detail view that only displays when an individual result is clicked on.
 
-Add variables for the detail tag, the message to display when no results are found, and a event listener for a user clears the form. Lets also add two functions, one for showing whether or not the detail view is active, and one for delegating the class names applied for each tag we want to toggle display for:
+Add variables for the detail tag, the message to display when no results are found, and a event listener for when a user clears the form. Lets also add two functions, one for showing whether or not the detail view is active, and one for delegating the class names applied for each tag we want to toggle display for:
 
 ```javascript
     // wire up senzing web components to event handlers
