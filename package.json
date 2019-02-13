@@ -1,0 +1,30 @@
+{
+  "name": "sdk-components-example-web-app",
+  "version": "0.0.2",
+  "description": "A quick example web app using the @senzing/sdk-components-web components.",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server --cors -a localhost -p 4200 -o"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Senzing/sdk-components-example-web-app.git"
+  },
+  "keywords": [
+    "Senzing",
+    "Entity",
+    "Resolution",
+    "Web",
+    "Components"
+  ],
+  "author": "Ara Winters",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Senzing/sdk-components-example-web-app/issues"
+  },
+  "homepage": "https://github.com/Senzing/sdk-components-example-web-app#readme",
+  "dependencies": {
+    "@senzing/sdk-components-web": "^0.0.4",
+    "http-server": "^0.11.1"
+  }
+}

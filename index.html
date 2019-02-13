@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <title>@senzing/sdk-components-web</title>
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // wire up senzing web components to event handlers    
+    window.onload = function() {
+      // get dom node references
+      var searchBoxEle    = document.querySelector('sz-search');
+      var searchResEle    = document.querySelector('sz-search-results');
+      var entityDetailEle = document.querySelector('sz-entity-detail');
+      var noResultsEle    = document.querySelector('#no-results');
+      var apiConfigEle    = document.querySelector('sz-configuration');
+
+      /*
+      // re-pull for attr types if not running on localhost:2080
+      // leave commented out or remove if running on default host:port
+      // @see https://github.com/Senzing/sdk-components-web/issues/2
+      if(apiConfigEle.getAttribute('base-path') && apiConfigEle.getAttribute('base-path').indexOf(':2080') < 0){
+        // pull these once again (first one will fail at race cond)
+        console.warn('api service not running on defaults. re-initializing attr types.', apiConfigEle, apiConfigEle.getAttribute('base-path'));
+        searchBoxEle.updateAttributeTypes();
+      }*/
+
+      function showDetailView(entityId) {
+        entityDetailEle.setAttribute('entity-id', entityId);
+        searchResEle.setAttribute('class','hidden');
+        entityDetailEle.removeAttribute('class');
+        applyClassesByState();
+      }
+
+      function applyClassesByState(searchResults) {
+        // first check if there are results to display
+        if(searchResults && searchResults.length <= 0){
+            noResultsEle.removeAttribute('class');
+            searchResEle.setAttribute('class','hidden');
+            entityDetailEle.setAttribute('class','hidden');
+        } else {
+            noResultsEle.setAttribute('class','hidden');
+            searchResEle.removeAttribute('class');
+            entityDetailEle.setAttribute('class','hidden');
+        }
+
+        // is there a entity id being displayed in the detail view?
+        var currentlySelectedEntity = entityDetailEle.getAttribute("entity-id");
+        if(currentlySelectedEntity){ 
+          currentlySelectedEntity = parseInt(currentlySelectedEntity); 
+        }
+
+        if( currentlySelectedEntity > 0){
+            // hide results list
+            searchResEle.setAttribute('class','hidden');
+            // show detail
+            entityDetailEle.removeAttribute('class');
+        } else {
+          console.log('\t no entity detail selected');
+        }
+      }
+      
+      searchBoxEle.addEventListener('resultsChange', function(evt) {
+        if(evt.detail){
+          // has payload
+          var searchResults = evt.detail;          
+          searchResEle.setAttribute('results', JSON.stringify(searchResults));
+          applyClassesByState(searchResults);
+        }
+      });
+      searchResEle.addEventListener('resultClick', function(evt){
+        if(evt.detail && evt.detail.entityId){
+          //has payload
+          showDetailView(evt.detail.entityId);
+        }
+      });
+      searchBoxEle.addEventListener('resultsCleared', function(evt) {
+        console.log('results cleared: ',evt);
+      
+        var searchResults = evt.detail;          
+        searchResEle.setAttribute('results', JSON.stringify(searchResults));
+        showDetailView(false);
+        applyClassesByState(searchResults);
+      });
+      
+    };
+
+  </script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: rgb(46, 46, 46);
+    }
+    .no-results, .hidden {
+      display: none !important;
+    }
+  </style>
+<link rel="stylesheet" href="node_modules/@senzing/sdk-components-web/themes/drab.css"></head>
+<link rel="stylesheet" href="styles/styles.css"></head>
+<body>
+  <!-- uncomment if running on different host:port
+    <sz-configuration id="api-config" base-path="http://localhost:8080"></sz-configuration>
+  -->
+  <sz-search></sz-search>
+  <h2 id="no-results">No Results Found</h2>
+  <sz-search-results class="hidden"></sz-search-results>
+  <sz-entity-detail class="hidden"></sz-entity-detail>
+  <sz-powered-by format="small" style="margin-top: 4em;"></sz-powered-by>
+<script type="text/javascript" src="node_modules/@senzing/sdk-components-web/senzing-components-web.js"></script>
+
+</body></html>
